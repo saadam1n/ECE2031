@@ -1,0 +1,4 @@
+# Some files we should delete to reduce the size of our project
+db
+incemental_db
+output
