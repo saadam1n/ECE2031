@@ -1,4 +1,4 @@
 # Some files we should delete to reduce the size of our project
-db
-incemental_db
-output
+db/
+incremental_db/
+output_files/
