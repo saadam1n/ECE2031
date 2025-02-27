@@ -1,0 +1,10 @@
+ORG 0
+	LOADI 20
+	SUB 	SUBVAL
+	STORE 	&H20
+	
+Finish:
+	JUMP   Finish 
+ORG &H1F
+SUBVAL:		DW	26
+  
