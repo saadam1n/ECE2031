@@ -11,7 +11,6 @@ use lpm.lpm_components.all;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
-use ieee.std_logic_misc.all;
 
 
 entity SCOMP is
@@ -35,8 +34,8 @@ architecture a of SCOMP is
 	type state_type is (
 		init, fetch, decode, ex_nop,
 		ex_load, ex_store, ex_store2, ex_iload, ex_istore, ex_istore2, ex_loadi,
-		ex_add, ex_sub, ex_addi,
-		ex_jump, ex_jneg, ex_jzero, ex_jpos,
+		ex_add, ex_addi,
+		ex_jump, ex_jneg, ex_jzero,
 		ex_return, ex_call,
 		ex_and, ex_or, ex_xor, ex_shift,
 		ex_in, ex_in2, ex_out, ex_out2
@@ -157,14 +156,10 @@ begin
 							state <= ex_store;
 						when "00011"  =>        -- add
 							state <= ex_add;
-						when "00100" =>
-							state <= ex_sub;
 						when "00101"  =>        -- jump
 							state <= ex_jump;
 						when "00110"  =>        -- jneg
 							state <= ex_jneg;
-						when "00111" =>
-							state <= ex_jpos;
 						when "01000"  =>        -- jzero
 							state <= ex_jzero;
 						when "01001"  =>        -- and
@@ -215,10 +210,6 @@ begin
 					AC    <= AC + mem_data;   -- addition
 					state <= fetch;
 
-				when ex_sub =>
-					AC    <= AC - mem_data;   -- sub
-					state <= fetch;
-					
 				when ex_jump =>
 					PC    <= operand; -- overwrite PC with new address
 					state <= fetch;
@@ -235,12 +226,6 @@ begin
 					end if;
 					state <= fetch;
 
-				when ex_jpos =>
-					if (AC(15) = '0' and or_reduce(AC) = '1') then
-						PC    <= operand;
-					end if;
-					state <= fetch;
-					
 				when ex_and =>
 					AC    <= AC and mem_data; -- logical bitwise AND
 					state <= fetch;

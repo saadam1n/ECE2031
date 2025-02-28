@@ -1,13 +1,13 @@
 /*<simulation_settings>
-<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off SCOMP_bare -c SCOMP_bare --vector_source="F:/QuartusWork/SCOMP/SCOMP_test.vwf" --testbench_file="F:/QuartusWork/SCOMP/simulation/qsim/SCOMP_test.vwf.vht"</ftestbench_cmd>
-<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off SCOMP_bare -c SCOMP_bare --vector_source="F:/QuartusWork/SCOMP/SCOMP_test.vwf" --testbench_file="F:/QuartusWork/SCOMP/simulation/qsim/SCOMP_test.vwf.vht"</ttestbench_cmd>
-<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="F:/QuartusWork/SCOMP/simulation/qsim/" SCOMP_bare -c SCOMP_bare</fnetlist_cmd>
-<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="F:/QuartusWork/SCOMP/simulation/qsim/" SCOMP_bare -c SCOMP_bare</tnetlist_cmd>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off SCOMP_bare -c SCOMP_bare --vector_source="C:/ECE2031/lab7/SCOMP_test.vwf" --testbench_file="C:/ECE2031/lab7/simulation/qsim/SCOMP_test.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off SCOMP_bare -c SCOMP_bare --vector_source="C:/ECE2031/lab7/SCOMP_test.vwf" --testbench_file="C:/ECE2031/lab7/simulation/qsim/SCOMP_test.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/ECE2031/lab7/simulation/qsim/" SCOMP_bare -c SCOMP_bare</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/ECE2031/lab7/simulation/qsim/" SCOMP_bare -c SCOMP_bare</tnetlist_cmd>
 <modelsim_script>onerror {exit -code 1}
 vlib work
 vcom -work work SCOMP_bare.vho
 vcom -work work SCOMP_test.vwf.vht
-vsim -novopt -c -t 1ps -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.SCOMP_vhd_vec_tst
+vsim -c -t 1ps -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.SCOMP_vhd_vec_tst
 vcd file -direction SCOMP_bare.msim.vcd
 vcd add -internal SCOMP_vhd_vec_tst/*
 vcd add -internal SCOMP_vhd_vec_tst/i1/*
@@ -48,7 +48,7 @@ the Block Editor! File corruption is VERY likely to occur.
 */
 
 /*
-Copyright (C) 2019  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
