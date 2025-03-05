@@ -1,6 +1,9 @@
--- SCOMP, the Simple Computer.
+-- SCOMP.vhd (VHDL)
+-- Implementation of SCOMP, the Simple Computer.
 -- A 16-bit computer designed to be easy to design and modify.
--- Updated 2021-06-22
+-- Saad Amin
+-- ECE 2031 L10
+-- 03/05/2025
 
 library altera_mf;
 library lpm;
@@ -236,6 +239,7 @@ begin
 					state <= fetch;
 
 				when ex_jpos =>
+					-- ensure sign bit is not on and there is at least some nonzero bits
 					if (AC(15) = '0' and or_reduce(AC) = '1') then
 						PC    <= operand;
 					end if;
