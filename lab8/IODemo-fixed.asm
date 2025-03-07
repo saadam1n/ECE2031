@@ -10,23 +10,27 @@ GetSwitches:
     STORE Pattern
     STORE PrevSwitches
     
-    JZERO FinishedReading
-    
-DetectMultiple:
+    LOADI 0
+    STORE BitCount
+CountBits:
 	LOAD	PrevSwitches
 	AND		FirstBitMask
     
-    JZERO ZeroBit
+    ADD	BitCount
+    STORE	BitCount
     
-    SUB PrevSwitches
-    JZERO FinishedReading
-    JUMP GetSwitches
-    
-ZeroBit:
-	LOAD	PrevSwitches
-	SHIFT -1
+    LOAD PrevSwitches
+    SHIFT -1
     STORE PrevSwitches
-    JUMP DetectMultiple
+    
+    LOAD PrevSwitches
+    JZERO ZeroBit
+    JUMP CountBits
+ZeroBit:
+	LOAD BitCount
+    ADDI -3
+    JNEG FinishedReading
+    JUMP GetSwitches
     
 FinishedReading:
 	LOAD	Pattern
@@ -35,7 +39,7 @@ FinishedReading:
 	
 Left:
 	; Slow down the loop so humans can watch it.
-;	CALL   Delay
+	CALL   Delay
 
 	; Check if the left place is 1 and if so, switch direction
 	LOAD   Pattern
@@ -51,7 +55,7 @@ Left:
 	
 Right:
 	; Slow down the loop so humans can watch it.
-;	CALL   Delay
+	CALL   Delay
 
 	; Check if the right place is 1 and if so, switch direction
 	LOAD   Pattern
@@ -90,3 +94,5 @@ Hex0:      EQU 004
 Hex1:      EQU 005
 PrevSwitches:	DW	0
 FirstBitMask:	DW	1
+BitCount:		DW 	0
+

@@ -1,0 +1,94 @@
+WIDTH=16;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+0000: B800; -- LOADI 0
+0001: 1053; -- STORE Score
+0002: 0853; --   LOAD Score
+0003: 9805; --   OUT Hex1
+0004: 8019; --     CALL ReadSwitches
+0005: 4007; --     JZERO EndWaitAllDown
+0006: 2804; --     JUMP WaitAllDown
+0007: 801C; --   CALL GenRandomNumber
+0008: 9804; --   OUT Hex0
+0009: 8035; --   CALL FindLowestSetBit
+000A: 1052; --   STORE RandomNumber
+000B: 9802; --   OUT TIMER
+000C: 8031; --   CALL GetPlayerAnswer
+000D: 8035; --   CALL FindLowestSetBit
+000E: 2052; --   SUB RandomNumber
+000F: 4013; --   JZERO CorrectAnswer
+0010: B800; -- 	LOADI 0
+0011: 1053; --     STORE SCORE
+0012: 2818; --     JUMP GameEnd
+0013: 9002; -- 	IN TIMER
+0014: 1054; --     STORE AnswerTime
+0015: B8C8; --     LOADI 200
+0016: 2054; --     SUB AnswerTime
+0017: 1053; --     STORE Score
+0018: 2802; -- 	JUMP GameStart
+0019: 9000; --     IN Switches
+001A: 9801; --     OUT LEDs
+001B: 8800; --     RETURN
+001C: BFFF; --     LOADI -1 ; start from zero
+001D: 102E; --     STORE RNGNumber
+001E: 082E; --     LOAD RNGNumber
+001F: 6801; --     ADDI 1
+0020: 102E; --     STORE RNGNumber
+0021: 8019; --     CALL ReadSwitches
+0022: 102F; --     STORE RNGRead
+0023: 4850; --     AND SW9Mask
+0024: 401E; --     JZERO RNGStart
+0025: 082F; --     LOAD RNGRead
+0026: 4830; --     AND RNGMask
+0027: 381E; --     JPOS RNGStart
+0028: 082E; --     LOAD RNGNumber
+0029: 4830; --     AND RNGMask
+002A: 402C; --     JZERO Set511
+002B: 8800; --     RETURN
+002C: B9FF; --     LOADI 511
+002D: 8800; --     RETURN
+002E: 0000; -- RNGNumber:    DW     0
+002F: 0000; -- RNGRead:    DW     0
+0030: 01FF; -- RNGMask:    DW    511    
+0031: 8019; -- 	CALL ReadSwitches
+0032: 4830; --   	AND RNGMask
+0033: 4031; --     JZERO GetPlayerAnswer
+0034: 8800; --     RETURN
+0035: 104D; -- 	STORE LoopAC
+0036: B810; --     LOADI 16
+0037: 104F; --     STORE LoopIters
+0038: B800; --     LOADI 0
+0039: 104E; --     STORE LoopIdx
+003A: 084E; -- 	LOAD LoopIdx
+003B: 204F; --     SUB LoopIters
+003C: 303F; --     JNEG LoopStart
+003D: BFFF; --     LOADI -1
+003E: 8800; --     RETURN
+003F: 084D; -- 	LOAD LoopAC
+0040: 6011; --     SHIFT -1
+0041: 6001; --     SHIFT 1
+0042: 204D; --     SUB LoopAC
+0043: 304B; --     JNEG Answer
+0044: 084D; --     LOAD LoopAC
+0045: 6011; --     SHIFT -1
+0046: 104D; --     STORE LoopAC
+0047: 084E; --     LOAD LoopIdx
+0048: 6801; --     ADDI 1
+0049: 104E; --     STORE LoopIdx
+004A: 283A; --     JUMP LoopHeader
+004B: 084E; -- 	LOAD LoopIdx
+004C: 8800; --     RETURN
+004D: 0000; -- LoopAC:		DW  0  
+004E: 0000; -- LoopIdx:	DW	0
+004F: 0010; -- LoopIters:	DW	16	
+0050: 0200; -- SW9Mask:    DW    512
+0051: 0000; -- PlayerAnswer:	DW 0
+0052: 0000; -- RandomNumber:	DW	0
+0053: 0000; -- Score:	DW	0   
+0054: 0000; -- AnswerTime:	DW	0
+[0055..07FF] : 0000; -- [empty memory]
+END;
